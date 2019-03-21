@@ -40,9 +40,12 @@ add_action( 'vedo_homepage', 'vedo_body_wrapper_start', 10 );
 add_action( 'vedo_homepage', 'vedo_homepage_category', 20 );
 add_action( 'vedo_homepage', 'vedo_featured_content_homepage', 30 );
 add_action( 'vedo_homepage', 'vedo_loop_homepage_slide', 40 );
+add_action( 'vedo_homepage', 'vedo_homepage_sidebar', 45 );
 add_action( 'vedo_homepage', 'vedo_loop_homepage_featured', 50);
 add_action( 'vedo_homepage', 'vedo_loop_homepage_category', 60 );
+add_action( 'vedo_homepage', 'vedo_loop_featured_product', 65 );
 add_action( 'vedo_homepage', 'vedo_body_wrapper_end', 70 );
+add_action( 'vedo_homepage', 'vedo_marketplace_icon', 80 );
 
 
 

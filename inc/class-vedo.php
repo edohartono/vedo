@@ -122,13 +122,16 @@ if ( ! class_exists( 'Vedo' ) ) {
 			wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/assets/css/bootstrap.min.css' );
 			wp_enqueue_style( 'vedo-style', get_template_directory_uri() . '/assets/css/vedo-styles.css' );
 			wp_enqueue_style( 'font-awesome',  'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' );
+			wp_enqueue_style( 'animate', get_template_directory_uri() . '/assets/css/animate.min.css' );
 
 
 
 			/**
 			 * Scripts
 			 */
-
+			wp_enqueue_script( 'vedo-js', get_template_directory_uri() . '/assets/js/vedo-script.js', array('jquery'), '', true );
+			wp_enqueue_script( 'popper', get_template_directory_uri() . '/assets/js/popper.min.js', array('jquery'), '', true);
+			wp_enqueue_script( 'bootstrapjs', get_template_directory_uri() . '/assets/js/bootstrap.min.js', array('jquery'), '', true );
 			wp_enqueue_script( 'vedo-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
 
 			wp_enqueue_script( 'vedo-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );

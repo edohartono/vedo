@@ -276,6 +276,88 @@
 
      */
 
+    // -> START = Homepage Section
+
+    Redux::setSection( $opt_name, array(
+        'title'         => __('Homepage', 'vedo' ),
+        'id'            => 'homepage',
+        'icon'          => 'el el-website',
+    ));
+
+    // -> END = Homepage subsection
+
+    // START = Slides Section
+    Redux::setSection( $opt_name, array(
+        'title'         => __('Slides', 'vedo' ),
+        'id'            => 'homepage-slides',
+        'subsection'    => true,
+        'fields'        => array(
+            array(
+                'title'     => __('Set Slider', 'vedo' ),
+                'subtitle'  => __('Use image dimensions <code>850 x 420</code> for better User Interface and User Experience', 'vedo' ),
+                'id'        => 'homepage-slide',
+                'type'      => 'slides',
+                'placeholder'   => array(
+                    'title'     => __('Title', 'vedo' ),
+                    'description'=> __('Description', 'vedo'),
+                    'url'       => __('URL', 'vedo'),
+                ),
+            ),
+
+            array(
+                'title'     => __('Button Text', 'vedo'),
+                'subtitle'  => __('Set displayed text on button if you are using slide with URL', 'vedo' ),
+                'id'        => 'homepage-slide-button',
+                'type'      => 'text',
+                'default'   => __('Call to Action', 'vedo'),
+            ),
+        ),
+    ));
+    // -> END = Slides subsection
+
+
+    // -> START = Featured Content Subsection
+    Redux::setSection( $opt_name, array(
+        'title'           => __('Featured Content', 'vedo' ),
+        'subtitle'        => __('This setup will take effect in featured content at bellow of slider', 'vedo' ),
+        'id'              => 'homepage-featureds',
+        'subsection'      => true,
+        'fields'          => array(
+
+            array(
+                'title'           => __('Template', 'vedo' ),
+                'type'            => 'color_gradient',
+                'id'              => 'homepage-featured-color',
+                'transparent'     => true,
+                'default'         => array(
+                    'from' => '#FBFBFB',
+                    'to'   => '#F5F5F5', 
+                ),
+            ),
+
+            array(
+                'title'           => __('Gradient degree', 'vedo' ),
+                'type'            => __('slider'),
+                'id'              => 'homepage-featured-deg',
+                'min'             => 0,
+                'max'             => 360,
+                'step'            => 15,
+                'default'         => 43,
+            ),
+
+            array(
+                'title'            => __('Content', 'vedo'), 
+                'subtitle'         => __('Use square image for better user experience', 'vedo' ),
+                'desc'             => __('Max. number of contents is <strong>3</strong>', 'vedo'),
+                'type'             => 'slides',
+                'id'               => 'homepage-featured',
+
+            ),
+        ),
+    ));
+
+
+
     // -> START Basic Fields
     Redux::setSection( $opt_name, array(
         'title'            => __( 'Basic Fields', 'redux-framework-demo' ),

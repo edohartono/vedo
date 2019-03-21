@@ -131,15 +131,17 @@ if ( ! function_exists( 'vedo_homepage_search' ) ) {
 		<div class="col-md-5 vedo-search">
 			<form action="">
 				<input type="text" placeholder="Search . . .">
-				<select name="" id="">
-					<option value="">All Categories</option>
-						<?php
-						$categories = get_categories( array('post_type' => 'product', 'hide_empty' => 0));
-						foreach ($categories as $category) {
-							echo "<option value='".$category->term_id."'>". $category->name ."</option>";
-						}
-						?>
-				</select>
+				<label for="">
+					<select name="" id="">
+						<option value="">All Categories</option>
+							<?php
+							$categories = get_categories( array('post_type' => 'product', 'hide_empty' => 0));
+							foreach ($categories as $category) {
+								echo "<option value='".$category->term_id."'>". $category->name ."</option>";
+							}
+							?>
+					</select>
+				</label>
 				<button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
 			</form>
 		</div>
@@ -151,7 +153,25 @@ if ( ! function_exists( 'vedo_homepage_search' ) ) {
 
 if ( ! function_exists( 'vedo_homepage_icons' ) ) { 
 	function vedo_homepage_icons() { ?>
-		<div class="col-md-4">icon</div>
+		<div class="col-md-4 header-icons">
+			<div class="header-favorite">
+				<i class="fa fa-heart" aria-hidden="true"></i>
+			</div>
+
+			<div class="header-cart">
+				<div class="mini-cart row">
+						<i class="fa fa-shopping-cart col-md-4" aria-hidden="true"><span class="preview-totals">2</span></i>
+
+						<div class="col-md-8 cart-desc">
+							<span>$99.00</span>
+						</div>
+				</div>
+
+				<div class="mini-cart-container">
+					mini cart
+				</div>
+			</div>
+		</div>
 	<?php	
 	}	
 }
@@ -190,16 +210,6 @@ if ( ! function_exists( 'vedo_header_wrapper_end' ) ) {
  * @hook See vedo-template-functions.php
  */
 
-add_action( 'vedo_homepage', 'vedo_body_wrapper_start', 10 );
-add_action( 'vedo_homepage', 'vedo_homepage_category', 20 );
-add_action( 'vedo_homepage', 'vedo_featured_content_homepage', 30 );
-add_action( 'vedo_homepage', 'vedo_loop_homepage_slide', 40 );
-add_action( 'vedo_homepage', 'vedo_homepage_sidebar', 45 );
-add_action( 'vedo_homepage', 'vedo_loop_homepage_featured', 50);
-add_action( 'vedo_homepage', 'vedo_loop_homepage_category', 60 );
-add_action( 'vedo_homepage', 'vedo_loop_featured_product', 65 );
-add_action( 'vedo_homepage', 'vedo_body_wrapper_end', 70 );
-add_action( 'vedo_homepage', 'vedo_marketplace_icon', 80 );
 
 if ( ! function_exists( 'vedo_body_wrapper_start' ) ) {
 	function vedo_body_wrapper_start() { ?>
@@ -212,23 +222,130 @@ if ( ! function_exists( 'vedo_body_wrapper_start' ) ) {
 if ( ! function_exists( 'vedo_homepage_category' ) ) {
 	function vedo_homepage_category() {?>
 		<div class="row">
-		<div class="col-md-3 category">Category</div>
+			<div class="col-md-3 category-navigation-wrapper">
+				<div class="category">
+					<h3 class="text-center">Categories</h3>
+				<?php
+					wp_nav_menu( array(
+						'theme_location' => 'category-menu',
+						'menu_id'        => 'category-menu',
+						'menu_class'	 => 'category-navigation',
+						'container'		 => 'nav',
+						'container_class'=> 'category-menu-container',
+
+					) );
+				?>
+				</div>
+			</div>
 	<?php	
 	}
 }
 
 if ( ! function_exists( 'vedo_featured_content_homepage' ) ) {
-	function vedo_featured_content_homepage() { ?>
+	function vedo_featured_content_homepage() { 
+		global $vedo_opt;
+		$slides = $vedo_opt['homepage-slide'];
+		$total_slide = count($slides);
+		$slide_index = 0;
+		?>
 
 		<div class="col-md-9 featured-homepage">
 			<div class="row">
-				<div class="slider">slider</div>
+				<div class="slider">
+
+					<div id="vedo-slider" class="carousel slide" data-ride="carousel">
+						<ol class="carousel-indicators">
+							<?php
+
+							for ($i=0; $i < $total_slide; $i++) { 
+								if ( $i == 0 ) { ?>
+									<li data-target="#vedo-slider" data-slide-to="<?= $i; ?>" class="active"></li>
+								<?php } else { ?>
+									<li data-target="#vedo-slider" data-slide-to="<?= $i; ?>"></li>
+								<?php }
+							} //endfor
+							?>
+
+						</ol>
+
+						<div class="carousel-inner">
+							<?php
+
+							foreach ($slides as $slide) {
+								if ( $slide_index == 0 ) { ?>
+									<div class="carousel-item active">
+								<?php
+								} else { ?>
+									<div class="carousel-item">
+								<?php } ?>
+								
+									<img class="d-block" src="<?= $slide['image']; ?>" alt="First slide">
+									<div class="carousel-caption d-none d-md-block">
+										<?php if ( ! empty($slide['title'] ) ) { ?>
+											<h5 class="animated fadeInDown"><?= $slide['title']; ?></h5>
+										<?php } ?>
+
+										<?php if ( ! empty($slide['description'] ) ) { ?>
+											<p class="animated fadeInRight delay-1s"><?= $slide['description']; ?></p>
+										<?php } ?>
+
+										<?php if ( ! empty($slide['url'] ) ) { ?>
+											<a href="<?= $slide['url']; ?>" class="animated zoomIn delay-2s btn btn-primary"><?= $vedo_opt['homepage-slide-button']; ?></a>
+										<?php } ?>										
+									</div>
+								</div>
+								
+							
+							<?php $slide_index++;} //endforeach ?>
+	
+						</div>
+
+						<a class="carousel-control-prev" href="#vedo-slider" role="button" data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</a>
+
+						<a class="carousel-control-next" href="#vedo-slider" role="button" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
+					</div>
+
+				</div>
 			</div>
 
-			<div class="row">
-				<div class="col-md-4">1</div>
-				<div class="col-md-4">2</div>
-				<div class="col-md-4">3</div>
+			<div class="row featured-content-homepage mt-4 mb-4">
+				<?php
+
+				$featureds = $vedo_opt['homepage-featured'];
+
+				foreach ($featureds as $featured) { ?>
+					<div class="col-md-4 wrapper">
+						<section>
+							<div class="row">
+								<div class="col-md-6 title">
+									<?php if (!empty( $featured['title']) ) {
+										echo '<h6>'.$featured['title'].'</h6>';
+									}
+
+									if ( !empty( $featured['url'] ) ) {
+										echo '<a href="'.$featured['url'].'">Some Text</a>';
+									}
+									
+									?>
+								</div>
+
+								<div class="img col-md-6">
+									<img src="<?= $featured['image']; ?>" alt="">
+								</div>
+								
+							</div>
+						</section>
+					</div>
+				
+
+				<?php } //end foreach?>
+
 			</div>
 		</div>
 
