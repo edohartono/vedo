@@ -241,8 +241,8 @@ if ( ! function_exists( 'vedo_homepage_category' ) ) {
 	}
 }
 
-if ( ! function_exists( 'vedo_featured_content_homepage' ) ) {
-	function vedo_featured_content_homepage() { 
+if ( ! function_exists( 'vedo_homepage_slider' ) ) {
+	function vedo_homepage_slider() { 
 		global $vedo_opt;
 		$slides = $vedo_opt['homepage-slide'];
 		$total_slide = count($slides);
@@ -314,69 +314,105 @@ if ( ! function_exists( 'vedo_featured_content_homepage' ) ) {
 				</div>
 			</div>
 
-			<div class="row featured-content-homepage mt-4 mb-4">
-				<?php
 
-				$featureds = $vedo_opt['homepage-featured'];
+		</div>
 
-				foreach ($featureds as $featured) { ?>
-					<div class="col-md-4 wrapper">
-						<section>
-							<div class="row">
-								<div class="col-md-6 title">
-									<?php if (!empty( $featured['title']) ) {
-										echo '<h6>'.$featured['title'].'</h6>';
-									}
+		</div>
+		<?php
 
-									if ( !empty( $featured['url'] ) ) {
-										echo '<a href="'.$featured['url'].'">Some Text</a>';
-									}
-									
-									?>
-								</div>
+	}
+}
 
-								<div class="img col-md-6">
-									<img src="<?= $featured['image']; ?>" alt="">
-								</div>
+if ( ! function_exists( 'vedo_featured_content_homepage')) {
+	function vedo_featured_content_homepage() { 
+		global $vedo_opt;?>
+
+		<div class="row featured-content-homepage mt-4 mb-4">
+			<?php
+
+			$featureds = $vedo_opt['homepage-featured'];
+
+			foreach ($featureds as $featured) { ?>
+				<div class="col-md-4 wrapper">
+					<section>
+						<div class="row">
+							<div class="col-md-6 title">
+								<?php if (!empty( $featured['title']) ) {
+									echo '<h6>'.$featured['title'].'</h6>';
+								}
+
+								if ( !empty( $featured['url'] ) ) {
+									echo '<a href="'.$featured['url'].'">Some Text</a>';
+								}
 								
+								?>
 							</div>
-						</section>
-					</div>
-				
 
-				<?php } //end foreach?>
+							<div class="img col-md-6">
+								<img src="<?= $featured['image']; ?>" alt="">
+							</div>
+							
+						</div>
+					</section>
+				</div>
+			
 
-			</div>
-		</div>
+			<?php } //end foreach?>
 
-		</div>
+		</div class="mb-4"><!-- row -->
 		<?php
 
 	}
 }
 
 if ( ! function_exists( 'vedo_loop_homepage_slide' ) ) {
-	function vedo_loop_homepage_slide() { ?>
+	function vedo_loop_homepage_slide() { 
+		global $vedo_opt;
+		?>
 
 		<div class="row">
 			<div class="loop-slider">
-				loop slider
+				<h2><?= $vedo_opt['homepage-loop-slider-heading']; ?></h2>
+				<ul class="owl-carousel-homepage-slider owl-carousel owl-theme">
+					<?php
+
+					$args = array(
+						'post_type'	=> 'product',
+						'posts_per_page' => 15,
+					);
+
+					$loop = new WP_Query( $args );
+
+					if ( $loop->have_posts() ) :
+						while( $loop->have_posts() ): $loop->the_post();
+							echo '<li class="item">';
+								do_action('vedo_loop');
+							echo '</li>';
+						endwhile;
+					
+
+					else:
+						echo "Product Not Found";
+					
+					endif;
+					?>
+				</ul>
 			</div>
 		</div>
 
 		<?php
-
+		
 	}
 }
 
 if ( ! function_exists( 'vedo_homepage_sidebar' ) ) {
 	function vedo_homepage_sidebar() { ?>
 
-		<div class="row">
+		<div class="row mt-4">
 
 
 			<div class="col-md-4 sidebar-home">
-				sidebar
+				<?php dynamic_sidebar( 'home-sidebar'); ?>
 			</div>
 			<div class="col-md-8 loop-featured">
 
@@ -386,8 +422,35 @@ if ( ! function_exists( 'vedo_homepage_sidebar' ) ) {
 
 if ( ! function_exists( 'vedo_loop_homepage_featured' ) ) {
 	function vedo_loop_homepage_featured() { ?>
+			<div class="pl-2 row">
+				<div class="homepage-loop-featured">
+					<section class="homepage-loop-featured-heading row">
+						<?php
+						global $vedo_opt;
+						$headings = $vedo_opt['homepage-loop-featured-heading'];
+						$i = 1;
 
-			<div class="col-md-4">loop homepage featured</div>
+						foreach ( $headings as $heading ) {
+							$heading_replace = str_replace('_', ' ', $heading);
+							if ( $i == 1 ) {
+								echo '<h1 class="active" id="'.$heading.'">'.ucwords($heading_replace).'</h1>';
+							} else {
+								echo '<h1 id="'.$heading.'">'.ucwords($heading_replace).'</h1>';
+							}
+
+							$i++;
+							
+						}
+						?>
+					</section>
+
+					<section class="homepage-loop-featured-content row">
+						<div class="container">
+							<?php get_template_part( 'template-parts/content', 'home'); ?>
+						</div>
+					</section>
+				</div>
+			</div>
 
 	<?php
 	}
@@ -395,8 +458,10 @@ if ( ! function_exists( 'vedo_loop_homepage_featured' ) ) {
 
 if ( ! function_exists( 'vedo_loop_homepage_category' ) ) {
 	function vedo_loop_homepage_category() { ?>
-
+			
+			<div class="row">
 			<div class="col-md-8 vedo-homepage-category">homepage category</div>
+			</div>
 			</div>
 
 	</div>
@@ -438,6 +503,100 @@ if ( ! function_exists( 'vedo_marketplace_icon' ) ) {
 	</div>
 
 	<?php
+	}
+}
+
+/** Ajax Action
+ * @hook wp_ajax_homepage_featured_ajax
+ * @hook wp_ajax_nopriv_homepage_featured_ajax
+ */
+
+if ( !function_exists( 'homepage_featured_ajax' ) ) {
+	function homepage_featured_ajax() {
+		global $post, $product, $vedo_opt;
+
+		$column = $vedo_opt['homepage-loop-featured-column'];
+		$row = $vedo_opt['homepage-loop-featured-row'];
+		$posts_per_page = $column * $row;
+		$col = 12 / $column;
+
+		$meta_key = $_POST['meta'];
+
+		if ( $meta_key == 'most_popular' ) {
+			$args = array(
+				'post_type'		=> 'product',
+				'posts_per_page' => $posts_per_page,
+				'post_status'	=> 'publish',
+				//most popular algorithm here
+			);
+		}
+
+		elseif ( $meta_key == 'best_seller' ) {
+			$args = array(
+				'post_type'		=> 'product',
+				'posts_per_page'=> $posts_per_page,
+				'post_status'	=> 'publish',
+				'meta_key'		=> 'total_sales',
+				'orderby'		=> 'meta_value_num',
+				//'order'			=> 'DESC',
+				'order'			=> 'ASC',
+			);
+		}
+
+		elseif ( $meta_key == 'most_wanted' ) {
+			$args = array(
+				'post_type'		=> 'product',
+				'posts_per_page'=> $posts_per_page,
+				'post_status'	=> 'publish',
+				'meta_key'		=> '_product_views_count',
+				'orderby'		=> 'meta_value_num',
+				'order'			=> 'DESC',
+			);
+		}
+
+		elseif ( $meta_key == 'rating' ) {
+			$args = array(
+				'post_type'		=> 'product',
+				'posts_per_page'=> $posts_per_page,
+				'post_status'	=> 'publish',
+				'meta_key'		=> '_wc_average_rating',
+				'orderby'		=> 'meta_value_num',
+				'order'			=> 'DESC',
+			);
+		}
+
+		else {
+			$args = array(
+				'post_type'		=> 'product',
+				'posts_per_page'=> $posts_per_page,
+				'post_status'	=> 'publish',
+			);
+		}
+
+		$loop = new WP_Query( $args );
+
+		echo '<ul><div class="row" style="margin: 0">';
+		$i = 1;
+
+		if ( $loop->have_posts() ):
+			while ( $loop->have_posts() ):
+				$loop->the_post(); ?>
+
+				<li class="col-md-<?= $col; ?>">
+					<?php get_template_part( 'template-parts/loop/loop', 'grid' ); ?>
+				</li>
+			<?php
+
+			if ( $i % $column == 0 ) {
+				echo '</div><div class="row" style="margin: 0">';
+			}
+			$i++;
+			endwhile;
+		endif;
+
+		echo '</div></ul>';
+
+		wp_die();
 	}
 }
 

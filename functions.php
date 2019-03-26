@@ -69,6 +69,8 @@ if ( defined( 'JETPACK__VERSION' ) ) {
  */
 if ( class_exists( 'WooCommerce' ) ) {
 	require get_template_directory() . '/inc/woocommerce.php';
+	require get_template_directory() . '/inc/woocommerce/vedo-woocommerce-template-hooks.php';
+	require get_template_directory() . '/inc/woocommerce/vedo-woocommerce-template-functions.php';
 }
 
 if ( ! class_exists( 'ReduxFramework' ) && file_exists( dirname(__FILE__) . '/inc/admin/redux/ReduxCore/framework.php' ) ) {

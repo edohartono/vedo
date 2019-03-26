@@ -38,8 +38,12 @@ if ( ! function_exists( 'vedo_header_style' ) ) :
 				background-color: <?= get_theme_mod('top_navigation_background_color'); ?>;
 			}
 
-			.category {
+			.category, {
 				border: 1px solid <?= get_theme_mod('header_background_color'); ?>;
+			}
+
+			.loop-slider ul {
+				border: 2px solid <?= get_theme_mod('header_background_color');?>;
 			}
 
 			.vedo-before-header a,
@@ -50,6 +54,15 @@ if ( ! function_exists( 'vedo_header_style' ) ) :
 			.featured-content-homepage section  {
 				background: <?= $vedo_opt['homepage-featured-color']['from'];?>;
 				background: linear-gradient(<?= $vedo_opt['homepage-featured-deg'];?>deg, <?= $vedo_opt['homepage-featured-color']['from'];?> 0%, <?= $vedo_opt['homepage-featured-color']['to'];?> 100%); 
+			}
+
+			.loop-slider ul li .product-buttons .atc,
+			.loop-slider ul li .product-buttons .atc a,
+			.loop-slider ul li .product-buttons .favorite,
+			.loop-slider ul li .product-buttons .detail
+			{
+				background: <?= get_theme_mod('button_color'); ?>;
+				color: <?= get_theme_mod('button_text_color'); ?>;
 			}
 		</style>
 		<?php

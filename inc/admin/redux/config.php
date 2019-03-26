@@ -356,6 +356,79 @@
         ),
     ));
 
+    // -> START Product Loop Subsection
+    Redux::setSection( $opt_name, array(
+        'title'             => __('Product Slider', 'vedo' ),
+        'subtitle'          => __('Configure homepage product slider', 'vedo' ),
+        'subsection'        => true,
+        'id'                => 'homepage-loop-sliders',
+        'fields'            => array(
+            array(
+                'title'            => __('Heading', 'vedo'),
+                'type'             => 'editor',
+                'id'               => 'homepage-loop-slider-heading',
+                'default'          => __('<strong>New</strong> Arrival', 'vedo'),
+                'args'             => array(
+                    'wpautop'           => false,
+                    'media_buttons'     => false,
+                    'textarea_rows'     => 2,
+                    'tabindex'          => false,
+                    
+                ),
+            ),
+
+            array(
+                'title'             => __('Display Product', 'vedo'),
+                'subtitle'          => __('Set product per slide','vedo'),
+                'id'                => 'homepage-loop-slider-display',
+                'type'              => 'text',
+                'validate'          => 'number',
+            ),
+        ),
+    ));
+
+    Redux::setSection( $opt_name, array(
+        'title'             => __('Featured Product', 'vedo' ),
+        'subsection'        => true,
+        'id'                => 'homepage-loop-featureds',
+        'fields'            => array(
+
+            array(
+                'id'       => 'homepage-loop-featured-heading',
+                'type'     => 'select',
+                'multi'    => true,
+                'title'    => __( 'Display Loop', 'vedo' ),
+                'options'  => array(
+                    'most_popular' => 'Most Popular',
+                    'best_seller' => 'Best Seller',
+                    'most_wanted'  => 'Most Wanted',
+                    'rating'      => 'Rating',
+                ),
+                'default'  => array( 'most_popular', 'best_seller', 'most_wanted' ),
+            ),
+
+            array(
+                'id'            => 'homepage-loop-featured-column',
+                'type'          => 'slider',
+                'title'         => __( 'Product Column', 'vedo' ),
+                'default'       => 3,
+                'min'           => 3,
+                'step'          => 1,
+                'max'           => 5,
+            ),
+
+            array(
+                'id'            => 'homepage-loop-featured-row',
+                'type'          => 'slider',
+                'title'         => __( 'Product Row', 'vedo' ),
+                'default'       => 4,
+                'min'           => 2,
+                'step'          => 1,
+                'max'           => 8,
+            ),
+        ),
+    ));
+
 
 
     // -> START Basic Fields

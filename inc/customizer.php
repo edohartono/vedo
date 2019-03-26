@@ -53,6 +53,28 @@ function vedo_customize_register( $wp_customize ) {
 			'settings'	=> 'top_navigation_text_color'
 	)));
 
+	$wp_customize->add_setting('button_color', array(
+			'default'	=> '#FFD94E',
+			'transport'	=> 'refresh',
+	));
+
+	$wp_customize->add_control( new WP_Customize_color_Control( $wp_customize, 'button_color_control', array(
+			'label'		=> __('Button Color', 'vedo' ),
+			'section'	=> 'colors',
+			'settings'	=> 'button_color',
+	) ) );
+
+	$wp_customize->add_setting('button_text_color', array(
+			'default'	=> '#FFFFFF',
+			'transport'	=> 'refresh',
+	));
+
+	$wp_customize->add_control( new WP_Customize_color_Control( $wp_customize, 'button_text_color_control', array(
+			'label'		=> __('Button Text Color', 'vedo' ),
+			'section'	=> 'colors',
+			'settings'	=> 'button_text_color',
+	) ) );
+
 	if ( isset( $wp_customize->selective_refresh ) ) {
 		$wp_customize->selective_refresh->add_partial( 'blogname', array(
 			'selector'        => '.site-title a',

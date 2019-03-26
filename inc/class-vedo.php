@@ -102,15 +102,25 @@ if ( ! class_exists( 'Vedo' ) ) {
 
 		public function widgets_init() {
 
-			register_sidebar( array(
-				'name'          => esc_html__( 'Sidebar', 'vedo' ),
-				'id'            => 'sidebar-1',
-				'description'   => esc_html__( 'Add widgets here.', 'vedo' ),
-				'before_widget' => '<section id="%1$s" class="widget %2$s">',
-				'after_widget'  => '</section>',
-				'before_title'  => '<h2 class="widget-title">',
-				'after_title'   => '</h2>',
-			) );
+			register_sidebar(
+				array(
+					'name'          => esc_html__( 'Sidebar', 'vedo' ),
+					'id'            => 'sidebar-1',
+					'description'   => esc_html__( 'Add widgets here.', 'vedo' ),
+					'before_widget' => '<section id="%1$s" class="widget %2$s">',
+					'after_widget'  => '</section>',
+					'before_title'  => '<h2 class="widget-title">',
+					'after_title'   => '</h2>',
+				));
+
+			register_sidebar( 
+				array(
+					'name'			=> __('Sidebar Home', 'vedo'),
+					'id'			=> 'home-sidebar',
+					'description'	=> __('Add widgets here', 'vedo'),
+					'before-widget'	=> '<section class="sidebar-home-wrapper">',
+					'after-widget'	=> '</section>',
+				));
 		
 		}
 
@@ -138,6 +148,17 @@ if ( ! class_exists( 'Vedo' ) ) {
 
 			if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 				wp_enqueue_script( 'comment-reply' );
+			}
+
+			/**
+			 * Homepage Script & Styles
+			 */
+
+			if ( is_home() || is_front_page()) {
+				wp_enqueue_script( 'owlcarousel-js', get_template_directory_uri(). '/assets/js/owl.carousel.min.js', array( 'jquery' ), '', true );
+				wp_enqueue_style( 'owlcarousel-css', get_template_directory_uri(). '/assets/css/owl.carousel.min.css' );
+				wp_enqueue_script( 'vedo-homepage', get_template_directory_uri(). '/assets/js/vedo-homepage.js', array( 'jquery' ), '', true );
+				wp_localize_script( 'vedo-homepage', 'homepage_featured', array( 'ajax_url' => admin_url('admin-ajax.php') ));
 			}
 		}
 	}

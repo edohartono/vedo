@@ -38,6 +38,7 @@ add_action( 'vedo_header', 'vedo_header_wrapper_end', 60);
 
 add_action( 'vedo_homepage', 'vedo_body_wrapper_start', 10 );
 add_action( 'vedo_homepage', 'vedo_homepage_category', 20 );
+add_action( 'vedo_homepage', 'vedo_homepage_slider', 20 );
 add_action( 'vedo_homepage', 'vedo_featured_content_homepage', 30 );
 add_action( 'vedo_homepage', 'vedo_loop_homepage_slide', 40 );
 add_action( 'vedo_homepage', 'vedo_homepage_sidebar', 45 );
