@@ -22,3 +22,6 @@ add_filter( 'woocommerce_get_price_html', 'vedo_woocommerce_price_filter');
 //Ajax Action
 add_action( 'wp_ajax_nopriv_homepage_featured_ajax', 'homepage_featured_ajax' );
 add_action( 'wp_ajax_homepage_featured_ajax' , 'homepage_featured_ajax' );
+
+add_action( 'wp_ajax_nopriv_homepage_category_ajax', 'homepage_category_ajax' );
+add_action( 'wp_ajax_homepage_category_ajax' , 'homepage_category_ajax' );

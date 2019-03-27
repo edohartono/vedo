@@ -28,7 +28,10 @@ if ( ! function_exists( 'vedo_header_style' ) ) :
 			.site-header,
 			.header-icons .mini-cart,
 			.category h3,
-			.category-navigation li:hover
+			.category-navigation li:hover,
+			.homepage-loop-featured-content li:hover .atc-circle,
+			.homepage-loop-category-content ul li .cat-sale,
+			.homepage-loop-category-content ul li:hover .atc-circle
 			{
 				background-color: <?php echo get_theme_mod('header_background_color');?>;
 			}
@@ -38,7 +41,7 @@ if ( ! function_exists( 'vedo_header_style' ) ) :
 				background-color: <?= get_theme_mod('top_navigation_background_color'); ?>;
 			}
 
-			.category, {
+			.category {
 				border: 1px solid <?= get_theme_mod('header_background_color'); ?>;
 			}
 
@@ -63,6 +66,22 @@ if ( ! function_exists( 'vedo_header_style' ) ) :
 			{
 				background: <?= get_theme_mod('button_color'); ?>;
 				color: <?= get_theme_mod('button_text_color'); ?>;
+			}
+
+			.homepage-loop-category-heading,
+			.homepage-loop-featured .homepage-loop-featured-heading {
+				border-bottom: 2px solid <?= get_theme_mod('header_background_color'); ?>;
+			}
+
+			.homepage-loop-featured .homepage-loop-featured-heading h1.active,
+			.homepage-loop-category-heading h1.active {
+				background: <?= get_theme_mod('header_background_color' );?>;
+				color: <?= get_theme_mod('header_text_color');?>
+			}
+
+			.homepage-loop-featured .homepage-loop-featured-heading h1,
+			.homepage-loop-category-heading h1 {
+				color: <?= get_theme_mod('header_background_color');?>;
 			}
 		</style>
 		<?php

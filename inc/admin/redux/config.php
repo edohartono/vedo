@@ -429,7 +429,43 @@
         ),
     ));
 
+    Redux::setSection( $opt_name, array(
+        'title'           => __('Categories Product Display', 'vedo' ),
+        'id'              => 'homepage-loop-categories',
+        'subsection'      => true,
+        'fields'          => array(
+            array(
+                'title'         => __('Select Category', 'vedo' ),
+                'id'            => 'homepage-loop-category-list',
+                'type'          => 'select',
+                'data'          => 'categories',
+                'args'          => array(
+                    'taxonomy'      => 'product_cat',
+                ),
+                'multi'         => true,
+            ),
 
+            array(
+                'id'            => 'homepage-loop-category-column',
+                'type'          => 'slider',
+                'title'         => __( 'Product Column', 'vedo' ),
+                'default'       => 2,
+                'min'           => 2,
+                'step'          => 1,
+                'max'           => 4,
+            ),
+
+            array(
+                'id'            => 'homepage-loop-category-row',
+                'type'          => 'slider',
+                'title'         => __( 'Product Row', 'vedo' ),
+                'default'       => 4,
+                'min'           => 2,
+                'step'          => 1,
+                'max'           => 8,
+            ),
+        ),
+    ));
 
     // -> START Basic Fields
     Redux::setSection( $opt_name, array(

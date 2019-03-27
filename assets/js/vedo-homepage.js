@@ -61,4 +61,31 @@ jQuery(document).ready(function($) {
 		});
 	});
 
+	$('.homepage-loop-category-heading h1').click(function() {
+		var cat = $(this).attr('id');
+		$('.homepage-loop-category-heading h1').removeClass('active');
+		$(this).addClass('active');
+
+		$.ajax({
+			url: homepage_category.ajax_url,
+			type: 'post',
+			data: {
+				action: 'homepage_category_ajax',
+				cat: cat,
+			},
+
+			success: function ( response ) {
+				$('.homepage-loop-category-content').html(response);
+			},
+
+			error: function( xhr, textStatus, err) {
+	            console.log("readyState: " + xhr.readyState);
+	            console.log("responseText: "+ xhr.responseText);
+	            console.log("status: " + xhr.status);
+	            console.log("text status: " + textStatus);
+	            console.log("error: " + err);
+			},
+		});
+	});
+
 });

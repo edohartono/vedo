@@ -159,6 +159,7 @@ if ( ! class_exists( 'Vedo' ) ) {
 				wp_enqueue_style( 'owlcarousel-css', get_template_directory_uri(). '/assets/css/owl.carousel.min.css' );
 				wp_enqueue_script( 'vedo-homepage', get_template_directory_uri(). '/assets/js/vedo-homepage.js', array( 'jquery' ), '', true );
 				wp_localize_script( 'vedo-homepage', 'homepage_featured', array( 'ajax_url' => admin_url('admin-ajax.php') ));
+				wp_localize_script( 'vedo-homepage', 'homepage_category', array( 'ajax_url' => admin_url('admin-ajax.php') ));
 			}
 		}
 	}

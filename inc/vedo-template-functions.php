@@ -446,7 +446,7 @@ if ( ! function_exists( 'vedo_loop_homepage_featured' ) ) {
 
 					<section class="homepage-loop-featured-content row">
 						<div class="container">
-							<?php get_template_part( 'template-parts/content', 'home'); ?>
+							<?php get_template_part( 'template-parts/home', 'featured'); ?>
 						</div>
 					</section>
 				</div>
@@ -457,10 +457,35 @@ if ( ! function_exists( 'vedo_loop_homepage_featured' ) ) {
 }
 
 if ( ! function_exists( 'vedo_loop_homepage_category' ) ) {
-	function vedo_loop_homepage_category() { ?>
+	function vedo_loop_homepage_category() { 
+		global $vedo_opt;
+		?>
 			
 			<div class="row">
-			<div class="col-md-8 vedo-homepage-category">homepage category</div>
+			<div class="vedo-homepage-category">
+				<section class="row homepage-loop-category-heading">
+					<?php
+					$i = 0;
+					$categories = $vedo_opt['homepage-loop-category-list'];
+					array_unshift( $categories, 'All Categories');
+					foreach ($categories as $category) {
+						$i++;
+						$term = get_term_by( 'id', $category, 'product_cat' );
+
+						if ( $i == 1 ){
+							echo '<h1 id="'.$category.'" class="active">'.$category.'</h1>';
+						} else {
+							echo '<h1 id="'.$category.'">'.$term->name.'</h1>';
+						}
+						
+					}
+					 ?>
+				</section>
+
+				<section class="homepage-loop-category-content row">
+					<?php get_template_part('template-parts/home', 'category' ); ?>
+				</section>
+			</div>
 			</div>
 			</div>
 
@@ -509,6 +534,9 @@ if ( ! function_exists( 'vedo_marketplace_icon' ) ) {
 /** Ajax Action
  * @hook wp_ajax_homepage_featured_ajax
  * @hook wp_ajax_nopriv_homepage_featured_ajax
+
+ * @hook wp_ajax_homepage_category_ajax
+ * @hook wp_ajax_nopriv_homepage_category_ajax
  */
 
 if ( !function_exists( 'homepage_featured_ajax' ) ) {
@@ -595,6 +623,67 @@ if ( !function_exists( 'homepage_featured_ajax' ) ) {
 		endif;
 
 		echo '</div></ul>';
+
+		wp_die();
+	}
+}
+
+
+if ( ! function_exists( 'homepage_category_ajax' ) ) {
+	function homepage_category_ajax() {
+
+		global $vedo_opt, $product;
+
+		$column = $vedo_opt['homepage-loop-category-column'];
+		$row = $vedo_opt['homepage-loop-category-row'];
+		$col = 12 / $column;
+		$posts_per_page = $column * $row;
+		$i = 0;
+
+		$category = $_POST['cat'];
+
+		if ( $category == 'All Categories') {
+			$args = array(
+				'post_type'	=> 'product',
+				'post_status' => 'publish',
+				'posts_per_page' => $posts_per_page,
+			);			
+		} else {
+			$args = array(
+				'post_type'	=> 'product',
+				'post_status' => 'publish',
+				'posts_per_page' => 'posts_per_page',
+				'tax_query' => array(
+					array(
+						'taxonomy'	=> 'product_cat',
+						'field'	=> 'term_id',
+						'terms' => $category,
+					),
+
+				),
+			);
+		}
+
+		$loop = new WP_Query( $args );
+
+		echo "<ul><div class='row'>";
+
+		if ( $loop->have_posts() ):
+			while( $loop->have_posts() ):
+				$loop->the_post();
+				get_template_part('template-parts/loop/loop', 'category' );
+
+				$i++;
+				if ( $i % $column == 0 ) {
+					echo '</div><div class="row">';
+				}
+				
+			endwhile;
+		endif;
+
+		echo "</div></ul>";
+
+
 
 		wp_die();
 	}
