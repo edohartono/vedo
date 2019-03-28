@@ -22,7 +22,14 @@ if ( ! function_exists( 'vedo_header_style' ) ) :
 	
 
 	function vedo_header_style() {
+
 		global $vedo_opt;
+		$header_text_color = get_header_textcolor();
+		$header_bg_color = get_theme_mod('header_background_color');
+		$top_nav_bg_color = get_theme_mod('top_navigation_background_color');
+		$top_nav_text_color = get_theme_mod('top_navigation_text_color' );
+		$button_bg_color = get_theme_mod('button_color');
+		$button_text_color = get_theme_mod('button_text_color');
 		?>
 		<style type="text/css">
 			.site-header,
@@ -33,25 +40,25 @@ if ( ! function_exists( 'vedo_header_style' ) ) :
 			.homepage-loop-category-content ul li .cat-sale,
 			.homepage-loop-category-content ul li:hover .atc-circle
 			{
-				background-color: <?php echo get_theme_mod('header_background_color');?>;
+				background-color: <?= $header_bg_color; ?>;
 			}
 
 			.vedo-before-header
 			 {
-				background-color: <?= get_theme_mod('top_navigation_background_color'); ?>;
+				background-color: <?= $top_nav_bg_color; ?>;
 			}
 
 			.category {
-				border: 1px solid <?= get_theme_mod('header_background_color'); ?>;
+				border: 1px solid <?= $header_bg_color; ?>;
 			}
 
 			.loop-slider ul {
-				border: 2px solid <?= get_theme_mod('header_background_color');?>;
+				border: 2px solid <?= $header_bg_color; ?>;
 			}
 
 			.vedo-before-header a,
 			.top-contact  {
-				color: <?= get_theme_mod('top_navigation_text_color' );?>;
+				color: <?= $top_nav_text_color; ?>;
 			}
 			
 			.featured-content-homepage section  {
@@ -64,24 +71,24 @@ if ( ! function_exists( 'vedo_header_style' ) ) :
 			.loop-slider ul li .product-buttons .favorite,
 			.loop-slider ul li .product-buttons .detail
 			{
-				background: <?= get_theme_mod('button_color'); ?>;
-				color: <?= get_theme_mod('button_text_color'); ?>;
+				background: <?= $button_bg_color; ?>;
+				color: <?= $button_text_color; ?>;
 			}
 
 			.homepage-loop-category-heading,
 			.homepage-loop-featured .homepage-loop-featured-heading {
-				border-bottom: 2px solid <?= get_theme_mod('header_background_color'); ?>;
+				border-bottom: 2px solid <?= $header_bg_color; ?>;
 			}
 
 			.homepage-loop-featured .homepage-loop-featured-heading h1.active,
 			.homepage-loop-category-heading h1.active {
-				background: <?= get_theme_mod('header_background_color' );?>;
-				color: <?= get_theme_mod('header_text_color');?>
+				background: <?= $header_bg_color;?>;
+				color: #<?= $header_text_color; ?>;
 			}
 
 			.homepage-loop-featured .homepage-loop-featured-heading h1,
 			.homepage-loop-category-heading h1 {
-				color: <?= get_theme_mod('header_background_color');?>;
+				color: <?= $header_bg_color; ?>;
 			}
 		</style>
 		<?php

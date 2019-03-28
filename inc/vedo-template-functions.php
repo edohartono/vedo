@@ -497,14 +497,78 @@ if ( ! function_exists( 'vedo_loop_homepage_category' ) ) {
 }
 
 if ( ! function_exists( 'vedo_loop_featured_product' ) ) {
-	function vedo_loop_featured_product() { ?>
+	function vedo_loop_featured_product() {
+		global $vedo_opt;
+		?>
 	
-	<div class="row">
-		<div class="featured-product-widget">
-			featured product widget
-		</div>
-	</div>
-	<?php
+	<div class="row featured-product-widget">
+			<section class="col-md-3">
+				<?php
+				$left_sides = $vedo_opt['featured-loop-widget-left'];
+				foreach ($left_sides as $left_side) {
+					$post = get_post($left_side);
+					$price = get_post_meta( $left_side, '_price', true );
+					$reg_price = get_post_meta( $left_side, '_regular_price', true );
+
+					echo '<div class="row">';
+					echo $post->post_title;
+					echo get_the_post_thumbnail($left_side);
+					echo get_the_permalink( $left_side );
+
+					if ( $price !== $reg_price ) {
+						echo $reg_price;
+					}
+					echo $price;
+					
+
+					echo '</div>';
+				}
+				?>
+			</section>
+
+			<section class="col-md-6">
+				<?php
+				
+
+				$center_side = $vedo_opt['featured-loop-widget-center'];
+				$price = get_post_meta( $center_side[0], '_price', true );
+				$reg_price = get_post_meta( $center_side[0], '_regular_price', true );
+				$post = get_post($center_side[0]);
+				echo $post->post_title;
+				echo get_the_post_thumbnail($center_side[0]);
+				echo get_the_permalink( $center_side[0] );
+
+				if ( $price !== $reg_price) {
+					echo $reg_price;
+				}
+				echo $price;
+				
+				?>
+			</section>
+
+			<section class="col-md-3">
+				<?php
+				$right_sides = $vedo_opt['featured-loop-widget-right'];
+
+				foreach ($right_sides as $right_side) {
+					$post = get_post($right_side);
+					$price = get_post_meta( $right_side, '_price', true );
+					$reg_price = get_post_meta( $right_side, '_regular_price', true );
+
+					echo '<div class="row">';
+					echo $post->post_title;
+					echo get_the_post_thumbnail($right_side);
+					echo get_the_permalink( $right_side );
+
+					if ( $price !== $reg_price ) {
+						echo $reg_price;
+					}
+					echo $price;
+					echo '</div>';
+				}
+				?>
+			</section>
+	</div>	<?php
 	}
 }
 

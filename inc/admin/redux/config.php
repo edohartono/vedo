@@ -467,6 +467,52 @@
         ),
     ));
 
+    Redux::setSection( $opt_name, array(
+        'title'           => __('Featured Product Widget', 'vedo' ),
+        'desc'        => __('', 'vedo' ),
+        'id'              => 'featured-loop-widgets',
+        'subsection'      => true,
+        'fields'          => array(
+            array(
+                'title'         => __('', 'vedo' ),
+                'id'            => 'featured-loop-widget-img',
+                'type'          => 'raw',
+                'content'       => '<style>#img-widget {width: 400px;}#img-widget tr th{text-align:center;padding-bottom: 5px;}#img-widget tr td {background: #DADADA;text-align: center;height: 50px;}#img-widget tbody tr td:nth-child(2) {border-left: 2px solid white;border-right: 2px solid white;width: 50%;}#img-widget tbody tr td:nth-child(1), #img-widget tbody tr td:nth-child(3) {border-bottom: 2px solid white;width: 25%;}#img-widget tbody tr:last-child td:nth-child(2) {border-bottom: 2px solid white;}</style>
+                    <table id="img-widget" cellspacing="0"><thead><tr><th>Left Side</th><th>Center Side</th><th>Right Side</th></tr></thead><tbody><tr><td>1</td><td>Center</td><td>1</td></tr><tr><td>2</td><td></td><td>2</td></tr></tbody></table>',
+            ),
+
+            array(
+                'id'       => 'featured-loop-widget-left',
+                'type'     => 'select',
+                'data'     => 'posts',
+                'args'     => array('post_type' => 'product', 'posts_per_page' => -1 ),
+                'multi'    => true,
+                'title'    => __( 'Left Side Products', 'vedo' ),
+                'desc'     => __('Max. selected product is 2'),
+            ),
+
+            array(
+                'id'       => 'featured-loop-widget-center',
+                'type'     => 'select',
+                'data'     => 'posts',
+                'args'     => array('post_type' => 'product', 'posts_per_page' => -1 ),
+                'multi'    => true,
+                'title'    => __( 'Center Side Products', 'vedo' ),
+                'desc'     => __('Max. selected product is 1'),
+            ),
+
+            array(
+                'id'       => 'featured-loop-widget-right',
+                'type'     => 'select',
+                'data'     => 'posts',
+                'args'     => array('post_type' => 'product', 'posts_per_page' => -1 ),
+                'multi'    => true,
+                'title'    => __( 'Right Side Products', 'vedo' ),
+                'desc'     => __('Max. selected product is 2'),
+            ),
+        ),
+    ));
+
     // -> START Basic Fields
     Redux::setSection( $opt_name, array(
         'title'            => __( 'Basic Fields', 'redux-framework-demo' ),
