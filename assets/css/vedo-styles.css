@@ -487,13 +487,11 @@ a:hover
 }
 
 .featured-content-homepage section .title a {
-	background: #FFD30D;
 	font-weight: bold;
 	padding: 6px;
 	display: block;
 	margin-top: 5px;
 	text-align: center;
-	color: white;
 }
 
 .featured-content-homepage section .title a:hover {
@@ -547,10 +545,6 @@ a:hover
 	height: 55px;
 	overflow: hidden;
 	border-bottom: 1px solid rgba(172,172,172,.5)
-}
-
-.loop-slider ul li a h2 {
-	color: #07C;
 }
 
 .loop-slider ul li .product-img {
@@ -814,7 +808,6 @@ a:hover
 	height: 50px;
 	line-height: 25px;
 	overflow: hidden;
-	color: #00AEEE;
 }
 
 .homepage-loop-featured-content li .product-price {
@@ -861,7 +854,6 @@ a:hover
 	font-size: 1.7em;
 	display: block;
 	margin-top: .2vw;
-	color: #FFF;
 
 }
 
@@ -873,6 +865,9 @@ a:hover
 
 
 /* Homepage Loop Category */
+.vedo-homepage-category {
+	width: 100%;
+}
 
 .homepage-loop-category-heading {
 	width: 100%;
@@ -939,7 +934,6 @@ a:hover
 	height: 50px;
 	overflow: hidden;
 	display: block;
-	color: #00AEEE;
 }
 
 .homepage-loop-category-content ul li .cat-price .product-rating {
@@ -996,21 +990,24 @@ a:hover
 	transition: .1s;
 }
 
-.homepage-loop-category-content li .product-rating .star-fill:before {
+.homepage-loop-category-content li .product-rating .star-fill:before,
+.featured-product-widget .product-rating .star-fill:before {
 	font-family: Vedo;
 	content: '\E802';
 	color: yellow;
 	font-size: 1.3em;
 }
 
-.homepage-loop-category-content li .product-rating .star-null:before {
+.homepage-loop-category-content li .product-rating .star-null:before,
+.featured-product-widget .product-rating .star-null:before {
 	font-family: Vedo;
 	content: '\E801';
 	color: yellow;
 	font-size: 1.3em;
 }
 
-.homepage-loop-category-content li .product-rating .star-half:before {
+.homepage-loop-category-content li .product-rating .star-half:before,
+.featured-product-widget .product-rating .star-half:before {
 	font-family: Vedo;
 	content: '\F123';
 	color: yellow;
@@ -1021,16 +1018,177 @@ a:hover
 
 
 .featured-product-widget {
-	border: 2px solid gray;
+	border: 2px solid yellow;
 	width: 100%;
+	min-height: 60vw;
+	border-radius: 5px;
 }
+
+.featured-product-widget .left-side .row {
+	/*position: relative;*/
+	width: 100%;
+	height: 25vw;
+	padding: 10px 0;
+	margin: 0;
+	display: block;
+}
+
+.featured-product-widget .right-side .row {
+	/*position: relative;*/
+	width: 100%;
+	height: 25vw;
+	padding: 10px 0;
+	margin: 0;
+	display: block;
+}
+
+.featured-product-widget .right-side .row:first-child,
+.featured-product-widget .left-side .row:first-child {
+	border-bottom: 1px solid gray;
+}
+
+.featured-product-widget .center-side .row {
+	height: 50%;
+}
+
+.featured-product-widget .center-side h2 {
+	font-size: 2em;
+	text-align: center;
+}
+
+.featured-product-widget .center-side .row a:first-child {
+	height: auto;
+	margin-top: 2vw;
+}
+
+.featured-product-widget .center-side .row .product-rating {
+	width: 100%;
+	text-align: center;
+	font-size: 1.6em;
+}
+
+.featured-product-widget .row a {
+	width: 100%;
+	display: block;
+}
+
+.featured-product-widget .row a:first-child {
+	height: 20px;
+	margin: 0;
+}
+
+.featured-product-widget h2 {
+	font-family: Verdana, sans-serif;
+	font-size: 1.3em;
+	color: #00AEEE;
+	display: block;
+}
+
+.featured-product-widget img {
+	width: 95%;
+	height: auto;
+	margin: auto;
+	display: block;
+}
+
+.featured-product-widget .widget-price {
+	width: 100%;
+	position: relative;
+	height: 4vw;
+}
+
+.featured-product-widget .widget-price .reg-price {
+	position: absolute;
+	color: #7C7C7C;
+	text-decoration: line-through;
+	top: 0;
+	left: 0;
+}
+
+.featured-product-widget .widget-price .sale-price {
+	position: absolute;
+	font-weight: 700;
+	font-size: 1.3em;
+	bottom: 0;
+	left: 0;
+}
+
+.homepage-payment-wrapper {
+	background: #E4E4E4;
+	width: 100%;
+	height: 80px;
+}
+
+.homepage-payment {
+	line-height: 80px;
+}
+
+.homepage-payment span {
+	font-size: 3em;
+	padding: 0 5px;
+	opacity: .6;
+}
+
+.homepage-payment span:hover {
+	opacity: 1;
+}
+
+.icon.discover:before {
+	font-family: Vedo;
+	content: '\F1F2';
+	color: #F78223;
+}
+
+.icon.american-express:before {
+	font-family: Vedo;
+	content: '\F1F3';
+	color: #139FDC;
+}
+
+.icon.visa:before {
+	font-family: Vedo;
+	content: '\F1F0';
+	color: #1A1F71;
+}
+
+.icon.mastercard:before {
+	font-family: Vedo;
+	content: '\F1F1';
+	color: #F8A519;
+}
+
+.icon.paypal:before {
+	color: #002F86;
+	font-family: Vedo;
+	content: '\F1F4';
+}
+
+.icon.stripe:before {
+	font-family: Vedo;
+	color: #6772E5;
+	content: '\F1F5';
+}
+
+.icon.apple:before {
+	font-family: Vedo;
+	content: '\F179';
+}
+
 
 footer {
 	background: black;
+	padding: 0 20px;
 }
 
-.homepage-marketplace-wrapper {
-	background: magenta;
-	width: 100%;
+footer .site-info {
+	color: #FFFFFF;
 }
+
+footer .footer-1,
+footer .footer-2,
+footer .footer-3,
+footer .footer-4 {
+	list-style-type: none;
+}
+
 

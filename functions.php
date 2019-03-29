@@ -58,6 +58,10 @@ require get_template_directory() . '/inc/class-vedo.php';
 require get_template_directory() . '/inc/customizer.php';
 
 /**
+ * Load Widgets
+ */
+require get_template_directory() . '/inc/widgets.php';
+/**
  * Load Jetpack compatibility file.
  */
 if ( defined( 'JETPACK__VERSION' ) ) {

@@ -276,6 +276,62 @@
 
      */
 
+    // START -> Basic Info
+    Redux::setSection( $opt_name, array(
+        'title'        => __('Basic Info', 'vedo'),
+        'id'           => 'basic',
+        'icon'         => 'el el-screen',
+    ));
+
+    Redux::setSection( $opt_name, array(
+        'title'        => __('Payment Gateway', 'vedo'),
+        'id'           => 'basic-payments',
+        'subsection'   => true,
+        'subtitle'     => __('Select payment gateway you are used', 'vedo' ),
+        'fields'       => array(
+            array(
+                'title'     => __('Choose Payment Gateway', 'vedo'),
+                'id'        => 'basic-payment',
+                'type'      => 'select',
+                'multi'     => true,
+                'options'   => array(
+                    'discover'  => 'Discover',
+                    'american-express' => 'American Express',
+                    'visa'      => 'Visa',
+                    'mastercard'    => 'Mastercard',
+                    'stripe'        => 'Stripe',
+                    'apple'         => 'Apple Pay',
+                    'paypal'        => 'PayPal',
+                ),
+                'default' => array( 'discover', 'american-express', 'visa', 'mastercard', 'paypal'),
+            ),
+
+            array(
+                'title'     => __('Display Payment Gateway on Homepage', 'vedo' ),
+                'id'        => 'basic-payment-homepage-status',
+                'type'      => 'checkbox',
+                'default'   => '1',
+                'desc'      => __('This setting will be affected at above of footer in homepage', 'vedo' ),
+            ),
+
+            array(
+                'title'     => __('Local Bank', 'vedo' ),
+                'subtitle'  => __('Set your custom local bank icon and name', 'vedo' ),
+                'id'        => 'basic-payment-locals',
+                'type'      => 'slides',
+                'placeholder' => array(
+                    'title'     => __('Local Bank Name', 'vedo'),
+                ),
+                'show'      => array(
+                    'title'       => true,
+                    'description' => false,
+                    'url'         => false,
+                ),
+
+            ),
+        ),
+    ));
+
     // -> START = Homepage Section
 
     Redux::setSection( $opt_name, array(
@@ -473,12 +529,21 @@
         'id'              => 'featured-loop-widgets',
         'subsection'      => true,
         'fields'          => array(
+
+
             array(
                 'title'         => __('', 'vedo' ),
                 'id'            => 'featured-loop-widget-img',
                 'type'          => 'raw',
                 'content'       => '<style>#img-widget {width: 400px;}#img-widget tr th{text-align:center;padding-bottom: 5px;}#img-widget tr td {background: #DADADA;text-align: center;height: 50px;}#img-widget tbody tr td:nth-child(2) {border-left: 2px solid white;border-right: 2px solid white;width: 50%;}#img-widget tbody tr td:nth-child(1), #img-widget tbody tr td:nth-child(3) {border-bottom: 2px solid white;width: 25%;}#img-widget tbody tr:last-child td:nth-child(2) {border-bottom: 2px solid white;}</style>
                     <table id="img-widget" cellspacing="0"><thead><tr><th>Left Side</th><th>Center Side</th><th>Right Side</th></tr></thead><tbody><tr><td>1</td><td>Center</td><td>1</td></tr><tr><td>2</td><td></td><td>2</td></tr></tbody></table>',
+            ),
+
+            array(
+                'title'        => __('Display featured widgets?', 'vedo' ),
+                'id'           => 'featured-loop-widget-status',
+                'type'         => 'switch',
+                'default'      => true,
             ),
 
             array(
@@ -489,6 +554,7 @@
                 'multi'    => true,
                 'title'    => __( 'Left Side Products', 'vedo' ),
                 'desc'     => __('Max. selected product is 2'),
+                'required' => array( 'featured-loop-widget-status', 'equals', '1'),
             ),
 
             array(
@@ -499,6 +565,7 @@
                 'multi'    => true,
                 'title'    => __( 'Center Side Products', 'vedo' ),
                 'desc'     => __('Max. selected product is 1'),
+                'required' => array( 'featured-loop-widget-status', 'equals', '1'),
             ),
 
             array(
@@ -509,6 +576,7 @@
                 'multi'    => true,
                 'title'    => __( 'Right Side Products', 'vedo' ),
                 'desc'     => __('Max. selected product is 2'),
+                'required' => array( 'featured-loop-widget-status', 'equals', '1'),
             ),
         ),
     ));
@@ -516,7 +584,7 @@
     // -> START Basic Fields
     Redux::setSection( $opt_name, array(
         'title'            => __( 'Basic Fields', 'redux-framework-demo' ),
-        'id'               => 'basic',
+        'id'               => 'basiczz',
         'desc'             => __( 'These are really basic fields!', 'redux-framework-demo' ),
         'customizer_width' => '400px',
         'icon'             => 'el el-home'

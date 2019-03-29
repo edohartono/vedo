@@ -30,6 +30,7 @@ if ( ! function_exists( 'vedo_header_style' ) ) :
 		$top_nav_text_color = get_theme_mod('top_navigation_text_color' );
 		$button_bg_color = get_theme_mod('button_color');
 		$button_text_color = get_theme_mod('button_text_color');
+		$title_color = get_theme_mod('title_color');
 		?>
 		<style type="text/css">
 			.site-header,
@@ -52,7 +53,8 @@ if ( ! function_exists( 'vedo_header_style' ) ) :
 				border: 1px solid <?= $header_bg_color; ?>;
 			}
 
-			.loop-slider ul {
+			.loop-slider ul,
+			.featured-product-widget {
 				border: 2px solid <?= $header_bg_color; ?>;
 			}
 
@@ -75,13 +77,19 @@ if ( ! function_exists( 'vedo_header_style' ) ) :
 				color: <?= $button_text_color; ?>;
 			}
 
+			.homepage-loop-featured-content li .product-price .atc-circle:before,
+			.homepage-loop-category-content ul li .cat-price .atc-circle:before {
+				color: <?= $button_text_color; ?>;
+			}
+
 			.homepage-loop-category-heading,
 			.homepage-loop-featured .homepage-loop-featured-heading {
 				border-bottom: 2px solid <?= $header_bg_color; ?>;
 			}
 
 			.homepage-loop-featured .homepage-loop-featured-heading h1.active,
-			.homepage-loop-category-heading h1.active {
+			.homepage-loop-category-heading h1.active,
+			.featured-content-homepage section .title a {
 				background: <?= $header_bg_color;?>;
 				color: #<?= $header_text_color; ?>;
 			}
@@ -89,6 +97,13 @@ if ( ! function_exists( 'vedo_header_style' ) ) :
 			.homepage-loop-featured .homepage-loop-featured-heading h1,
 			.homepage-loop-category-heading h1 {
 				color: <?= $header_bg_color; ?>;
+			}
+
+			.loop-slider ul li a h2,
+			.homepage-loop-featured-content li h2,
+			.homepage-loop-category-content ul li h2,
+			.featured-product-widget h2 {
+				color: <?= $title_color; ?>;
 			}
 		</style>
 		<?php

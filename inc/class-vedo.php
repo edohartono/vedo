@@ -121,7 +121,42 @@ if ( ! class_exists( 'Vedo' ) ) {
 					'before-widget'	=> '<section class="sidebar-home-wrapper">',
 					'after-widget'	=> '</section>',
 				));
-		
+
+			register_sidebar(
+				array(
+					'name'			=> __('Footer Widgets 1', 'vedo' ),
+					'id'			=> 'footer-1'
+				));
+
+			register_sidebar(
+				array(
+					'name'			=> __('Footer Widgets 2', 'vedo' ),
+					'id'			=> 'footer-2',
+				));
+
+			register_sidebar(
+				array(
+					'name'			=> __('Footer Widgets 3', 'vedo' ),
+					'id'			=> 'footer-3',
+				));
+
+			register_sidebar(
+				array(
+					'name'			=> __('Footer Widgets 4', 'vedo' ),
+					'id'			=> 'footer-4',
+				));
+
+			register_sidebar(
+				array(
+					'name'			=> __('Single Product', 'vedo' ),
+					'id'			=> 'single',
+				));
+
+			register_sidebar(
+				array(
+					'name'			=> __('Shop Product', 'vedo' ),
+					'id'			=> 'shop',
+				));
 		}
 
 		public function scripts() {

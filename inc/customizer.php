@@ -53,6 +53,17 @@ function vedo_customize_register( $wp_customize ) {
 			'settings'	=> 'top_navigation_text_color'
 	)));
 
+	$wp_customize->add_setting( 'title_color', array(
+			'default'	=> '#00AEEE',
+			'transport'	=> 'refresh'
+	));
+
+	$wp_customize->add_control( new WP_Customize_color_Control( $wp_customize, 'title_color_control', array(
+			'label'		=> __('Title Color', 'vedo' ),
+			'section'	=> 'colors',
+			'settings'	=> 'title_color',
+	)));
+
 	$wp_customize->add_setting('button_color', array(
 			'default'	=> '#FFD94E',
 			'transport'	=> 'refresh',

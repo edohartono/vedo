@@ -31,28 +31,9 @@ $posts_per_page = $column * $row;
 
 			<div class="cat-price">
 				<div class="product-rating">
-				<?php
-				$average = $product->get_average_rating();
-				$star = '<span class="star-fill"></span>';
-
-
-				if ( (int) $average != $average ) {
-					$rating = floor( $average * 100 / 100 );
-					echo str_repeat($star, $rating);
-					echo '<span class="star-half"></span>';
-					$rating ++;
-				}
-
-				else {
-					$rating = $average;
-					echo str_repeat($star, $rating);
-				}
-
-				for ($i=$rating; $i < 5; $i++) { 
-					echo '<span class="star-null"></span>';
-				}
-				?>
+				<?php do_action( 'vedo_get_product_rating_html' ); ?>
 			</div>
+			
 				<?= $product->get_price_html(); ?>
 				<a href="" class="atc-circle">
 				</a>

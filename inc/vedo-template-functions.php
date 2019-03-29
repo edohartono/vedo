@@ -498,77 +498,170 @@ if ( ! function_exists( 'vedo_loop_homepage_category' ) ) {
 
 if ( ! function_exists( 'vedo_loop_featured_product' ) ) {
 	function vedo_loop_featured_product() {
-		global $vedo_opt;
+		global $vedo_opt, $woocommerce;
+		if ( $vedo_opt['featured-loop-widget-status'] == '1' ) {
+		
 		?>
 	
-	<div class="row featured-product-widget">
-			<section class="col-md-3">
-				<?php
-				$left_sides = $vedo_opt['featured-loop-widget-left'];
-				foreach ($left_sides as $left_side) {
-					$post = get_post($left_side);
-					$price = get_post_meta( $left_side, '_price', true );
-					$reg_price = get_post_meta( $left_side, '_regular_price', true );
+			<div class="row featured-product-widget">
+					<section class="col-md-3 left-side">
+						<?php
+						$left_sides = $vedo_opt['featured-loop-widget-left'];
+						foreach ($left_sides as $left_side) {
+							$post = get_post($left_side);
+							$price = get_post_meta( $left_side, '_price', true );
+							$average = get_post_meta( $left_side, '_wc_average_rating', true );
+							$reg_price = get_post_meta( $left_side, '_regular_price', true );
 
-					echo '<div class="row">';
-					echo $post->post_title;
-					echo get_the_post_thumbnail($left_side);
-					echo get_the_permalink( $left_side );
+							echo '<div class="row">';
+							echo wc_get_product_category_list($left_side);
+							echo '<a href="'.get_the_permalink( $left_side ).'">';
+							echo '<h2>'.$post->post_title.'</h2>';
+							echo '</a>';
+							echo get_the_post_thumbnail($left_side);
 
-					if ( $price !== $reg_price ) {
-						echo $reg_price;
-					}
-					echo $price;
-					
+							echo '<div class="product-rating">';
+							
+							
+							$star = '<span class="star-fill"></span>';
 
-					echo '</div>';
-				}
-				?>
-			</section>
 
-			<section class="col-md-6">
-				<?php
-				
+							if ( (int) $average != $average ) {
+								$rating = floor( $average * 100 / 100 );
+								echo str_repeat($star, $rating);
+								echo '<span class="star-half"></span>';
+								$rating ++;
+							}
 
-				$center_side = $vedo_opt['featured-loop-widget-center'];
-				$price = get_post_meta( $center_side[0], '_price', true );
-				$reg_price = get_post_meta( $center_side[0], '_regular_price', true );
-				$post = get_post($center_side[0]);
-				echo $post->post_title;
-				echo get_the_post_thumbnail($center_side[0]);
-				echo get_the_permalink( $center_side[0] );
+							else {
+								$rating = $average;
+								echo str_repeat($star, $rating);
+							}
 
-				if ( $price !== $reg_price) {
-					echo $reg_price;
-				}
-				echo $price;
-				
-				?>
-			</section>
+							for ($i=$rating; $i < 5; $i++) { 
+								echo '<span class="star-null"></span>';
+							}
+							
+							echo '</div>';
+							
+							echo '<div class="widget-price">';
+							if ( $price !== $reg_price ) {
+								echo '<span class="reg-price">'.wc_price($reg_price).'</span>';
+							}
+							echo '<span class="sale-price">'.wc_price($price).'</span>';
+							echo '</div>';
+							
 
-			<section class="col-md-3">
-				<?php
-				$right_sides = $vedo_opt['featured-loop-widget-right'];
+							echo '</div>';
+						}
+						?>
+					</section>
 
-				foreach ($right_sides as $right_side) {
-					$post = get_post($right_side);
-					$price = get_post_meta( $right_side, '_price', true );
-					$reg_price = get_post_meta( $right_side, '_regular_price', true );
+					<section class="col-md-6 center-side">
+						<?php
+						
 
-					echo '<div class="row">';
-					echo $post->post_title;
-					echo get_the_post_thumbnail($right_side);
-					echo get_the_permalink( $right_side );
+						$center_side = $vedo_opt['featured-loop-widget-center'];
+						$price = get_post_meta( $center_side[0], '_price', true );
+						$average = get_post_meta( $center_side[0], '_wc_average_rating', true );
+						$reg_price = get_post_meta( $center_side[0], '_regular_price', true );
+						$post = get_post($center_side[0]);
 
-					if ( $price !== $reg_price ) {
-						echo $reg_price;
-					}
-					echo $price;
-					echo '</div>';
-				}
-				?>
-			</section>
-	</div>	<?php
+						echo '<div class="row">';
+						//echo wc_get_product_category_list($center_side[0]);
+						echo '<a href="'.get_the_permalink( $center_side[0] ).'">';
+						echo '<h2>'.strtoupper($post->post_title).'</h2>';
+						echo '</a>';
+						echo get_the_post_thumbnail($center_side[0]);
+
+						echo '<div class="product-rating">';
+						
+						
+						$star = '<span class="star-fill"></span>';
+
+
+						if ( (int) $average != $average ) {
+							$rating = floor( $average * 100 / 100 );
+							echo str_repeat($star, $rating);
+							echo '<span class="star-half"></span>';
+							$rating ++;
+						}
+
+						else {
+							$rating = $average;
+							echo str_repeat($star, $rating);
+						}
+
+						for ($i=$rating; $i < 5; $i++) { 
+							echo '<span class="star-null"></span>';
+						}
+						
+						echo '</div>';
+
+						echo '<div class="widget-price">';
+						if ( $price !== $reg_price ) {
+							echo '<span class="reg-price">'.wc_price($reg_price).'</span>';
+						}
+						echo '<span class="sale-price">'.wc_price($price).'</span>';
+						echo '</div>';
+						echo '</div>';
+						
+						?>
+					</section>
+
+					<section class="col-md-3 right-side">
+						<?php
+						$right_sides = $vedo_opt['featured-loop-widget-right'];
+
+						foreach ($right_sides as $right_side) {
+							$post = get_post($right_side);
+							$price = get_post_meta( $right_side, '_price', true );
+							$average = get_post_meta( $right_side, '_wc_average_rating', true );
+							$reg_price = get_post_meta( $right_side, '_regular_price', true );
+
+							echo '<div class="row">';
+							echo wc_get_product_category_list($right_side);
+							echo '<a href="'.get_the_permalink( $right_side ).'">';
+							echo '<h2>'.$post->post_title.'</h2>';
+							echo '</a>';
+							echo get_the_post_thumbnail($right_side);
+
+							echo '<div class="product-rating">';
+							
+							
+							$star = '<span class="star-fill"></span>';
+
+
+							if ( (int) $average != $average ) {
+								$rating = floor( $average * 100 / 100 );
+								echo str_repeat($star, $rating);
+								echo '<span class="star-half"></span>';
+								$rating ++;
+							}
+
+							else {
+								$rating = $average;
+								echo str_repeat($star, $rating);
+							}
+
+							for ($i=$rating; $i < 5; $i++) { 
+								echo '<span class="star-null"></span>';
+							}
+							
+							echo '</div>';
+
+							echo '<div class="widget-price">';
+							if ( $price !== $reg_price ) {
+								echo '<span class="reg-price">'.wc_price($reg_price).'</span>';
+							}
+							echo '<span class="sale-price">'.wc_price($price).'</span>';
+							echo '</div>';
+							echo '</div>';
+						}
+						?>
+					</section>
+			</div>	<?php
+		}
 	}
 }
 
@@ -583,15 +676,30 @@ if ( ! function_exists( 'vedo_body_wrapper_end' ) ) {
 }
 
 if ( ! function_exists( 'vedo_marketplace_icon' ) ) {
-	function vedo_marketplace_icon() { ?>
+	function vedo_marketplace_icon() { 
+		global $vedo_opt;
 
-	<div class="row">
-		<div class="container-fluid homepage-marketplace-wrapper">
-			social media icon
-		</div>
-	</div>
+		if ( $vedo_opt['basic-payment-homepage-status'] == '1' ) {
+		?>
+		
+			<div class="row">
+				<div class="container-fluid homepage-payment-wrapper mt-4 mb-4">
+					<div class="row">
+						<div class="col-md-10 offset-1 homepage-payment">
+							<?php
+							$payments = $vedo_opt['basic-payment'];
+
+							foreach ($payments as $payment) {
+								echo '<span class="icon '.$payment.'"></span>';
+							}
+							?>
+						</div>
+					</div>
+				</div>
+			</div>
 
 	<?php
+		}
 	}
 }
 
